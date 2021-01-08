@@ -1,8 +1,16 @@
-//
-// Created by spl211 on 08/01/2021.
-//
-
 #ifndef CLIENT_WRITE_H
 #define CLIENT_WRITE_H
 
+
+#include "../include/connectionHandler.h"
+#include <thread>
+
+
+class Write{
+private:
+    ConnectionHandler *connectionHandler;
+public:
+    Write(ConnectionHandler *connect );
+    bool write();
+};
 #endif //CLIENT_WRITE_H
