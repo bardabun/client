@@ -33,12 +33,11 @@ bool Write::write() {
                 //a func we need to make - gets string and short opcode
                 //
             }
-
-//        bool sent;
-//        std::string sub = "";
-//        if (command=="ADMINREG") {
-//
-
+            if(message==" "){}
+            if(message==" "){}
+            if(message==" "){}
+            if(message==" "){}
+            if(message==" "){}
 
 
         }
