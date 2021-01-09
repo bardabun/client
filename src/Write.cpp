@@ -32,7 +32,9 @@ bool Write::write() {
 
         if (!isThereMoreMessage) { // then must be 4 | 11
             sent = connectionHandler->sendFrame(opcode);
-        } else { // more message
+        } else {
+
+            // more message
             while (line[indexMessage] != ' ') {
                 message += line[indexMessage];
                 indexMessage++;

@@ -154,3 +154,7 @@ bool ConnectionHandler::sendFrameShort(short courseNum, short opCode) {
     delete[] bitArr;
     return flag;
 }
+
+bool ConnectionHandler::getFrame(std::string Recieved) {
+    return false;
+}

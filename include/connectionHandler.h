@@ -57,6 +57,8 @@ public:
     bool sendFrame(std::string restOfMessage, short opCode);
 
     bool sendFrameShort(short courseNum, short opCode);
+
+    bool getFrame(std::string Recieved);
 }; //class ConnectionHandler
  
 #endif
