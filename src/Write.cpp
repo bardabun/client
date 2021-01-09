@@ -1,7 +1,7 @@
 
 #include "../include/Write.h"
 
-Write::Write(ConnectionHandler *connect) {
+Write::Write(ConnectionHandler *connect):connectionHandler(connectionHandler){
 
 }
 

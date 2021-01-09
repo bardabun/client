@@ -20,8 +20,8 @@ int main (int argc, char *argv[]) {
         std::cerr << "Cannot connect to " << host << ":" << port << std::endl;
         return 1;
     }
-    Write w(connectionHandler);
-    Read r(connectionHandler, true);
+    Write w(&connectionHandler);
+    Read r(&connectionHandler, true);
     std:: thread writer(&Write::write,&w);
     r.read();// main thread will read
     writer.join();
