@@ -47,7 +47,16 @@ public:
 	
     // Close down the connection properly.
     void close();
- 
+
+
+    void shortToBytes(short num, char* bytesArr);
+    short bytesToShort(char *bytesArr, int i);
+
+    bool sendFrame(short opCode);
+
+    bool sendFrame(std::string restOfMessage, short opCode);
+
+    bool sendFrameShort(short courseNum, short opCode);
 }; //class ConnectionHandler
  
 #endif
