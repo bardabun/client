@@ -6,9 +6,10 @@
 class Read{
 private:
     ConnectionHandler *connectionHandler;
+    bool terminate;
 
 public:
-    Read(ConnectionHandler *connection );
+    Read(ConnectionHandler *connection, bool Terminate );
     bool read();
 };
 #endif //CLIENT_READ_H

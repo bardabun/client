@@ -21,8 +21,8 @@ int main (int argc, char *argv[]) {
         return 1;
     }
     Write w(connectionHandler);
-    Read r(connectionHandler);
-    std:: thread writer(&Write::run,&w);
+    Read r(connectionHandler, true);
+    std:: thread writer(&Write::write,&w);
     r.read();// main thread will read
     writer.join();
 

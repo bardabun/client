@@ -1,23 +1,38 @@
 #include "../include/Read.h"
 
-Read::Read(ConnectionHandler *connection): connectionHandler(connection) {
+Read::Read(ConnectionHandler *connection, bool Terminate) : connectionHandler(connection), terminate(true) {
 
 }
 
 bool Read::read() {
-    while(true){
-        char recieved[4];
-        if (!connectionHandler->getBytes(recieved, sizeof(recieved))) {
+    while (terminate) {
+        char received[4];
+        if (!connectionHandler->getBytes(received, 4)) {
             std::cout << "Disconnected. Exiting... read \n" << std::endl;
             break;
         }
-        short opcode = connectionHandler->bytesToShort(recieved,0);
-        std::cout<<opcode<<std::endl;
+        short opcode = connectionHandler->bytesToShort(received, 0);
+        short messageOpcode = connectionHandler->bytesToShort(received, 2);
+        std::cout << opcode << std::endl;
         if (opcode == 13) {
-
+            std::cout << "ERROR " << messageOpcode << std::endl;
             break;
         }
-        if(opcode==12){}
+        if (opcode == 12) {
+            std::cout << "ACK " << messageOpcode << std::endl;
+            std::string optional;
+            if(messageOpcode==4) {
+                terminate = false;
+            }else{
+                if(messageOpcode==6 | messageOpcode == 7 | messageOpcode == 8 | messageOpcode == 9| messageOpcode == 11) {
+                    if (!connectionHandler->getLine(optional)) {
+                        std::cout << "Disconnected. Exiting... read \n" << std::endl;
+                        break;
+                    }
+                    std::cout << optional << std::endl;
+                }
+            }
+        }
     }
     return false;
 }
