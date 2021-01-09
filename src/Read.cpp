@@ -1,11 +1,12 @@
 #include "../include/Read.h"
 
-Read::Read(ConnectionHandler *connection, bool Terminate) : connectionHandler(connection), terminate(true) {
-
+Read::Read(ConnectionHandler &connection, std::condition_variable &con) :
+        connectionHandler(), terminate(false), conditionV(con) {
+    connectionHandler = &connection;
 }
 
 bool Read::read() {
-    while (terminate) {
+    while (!terminate) {
         char received[4];
         if (!connectionHandler->getBytes(received, 4)) {
             std::cout << "Disconnected. Exiting... read \n" << std::endl;
@@ -21,10 +22,15 @@ bool Read::read() {
         if (opcode == 12) {
             std::cout << "ACK " << messageOpcode << std::endl;
             std::string optional;
-            if(messageOpcode==4) {
-                terminate = false;
-            }else{
-                if(messageOpcode==6 | messageOpcode == 7 | messageOpcode == 8 | messageOpcode == 9| messageOpcode == 11) {
+            if (messageOpcode == 4) {
+
+                conditionV.notify_all();
+                terminate = true;
+
+                break;
+            } else {
+                if (messageOpcode == 6 | messageOpcode == 7 | messageOpcode == 8 | messageOpcode == 9 |
+                    messageOpcode == 11) {
                     if (!connectionHandler->getLine(optional)) {
                         std::cout << "Disconnected. Exiting... read \n" << std::endl;
                         break;
@@ -36,3 +42,5 @@ bool Read::read() {
     }
     return false;
 }
+
+
