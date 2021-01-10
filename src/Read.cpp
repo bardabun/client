@@ -15,7 +15,7 @@ bool Read::read() {
         short opcode = connectionHandler->bytesToShort(received, 0);
         short messageOpcode = connectionHandler->bytesToShort(received, 2);
 
-        std::cout << messageOpcode << std::endl;
+
         if (opcode == 13) {
             std::cout << "ERROR " << messageOpcode << std::endl;
             break;
