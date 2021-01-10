@@ -71,7 +71,7 @@ bool Write::write() {
                 sent = connectionHandler->sendFrameShort(cNum, 6);
             } else if (message == "COURSESTAT") {
                 std::stringstream courseNum(restOfTheMessage);
-                short cNum = 0;
+                short cNum = 0;//
                 courseNum >> cNum;  // converting string to short
                 sent = connectionHandler->sendFrameShort(cNum, 7);
             } else if (message == "ISREGISTERED") {
