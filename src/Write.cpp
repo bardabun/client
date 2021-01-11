@@ -23,20 +23,21 @@ bool Write::write() {
         if (line == "LOGOUT") {
             opcode = 4;
             isThereMoreMessage = false;
-            message = line;
+            //message = line;
             terminate=true;
+            sent = connectionHandler->sendFrame(opcode);
             std::unique_lock<std::mutex> lck(mut);
             cv.wait(lck);
         }
         if (line == "MYCOURSES") {
             opcode = 11;
             isThereMoreMessage = false;
-            message = line;
+           // message = line;
+            sent = connectionHandler->sendFrame(opcode);
         }
 
-        if (!isThereMoreMessage) { // then must be 4 | 11
-            sent = connectionHandler->sendFrame(opcode);
-        } else {
+        if (isThereMoreMessage) {
+
 
             // more message
             while (line[indexMessage] != ' ') {

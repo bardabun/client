@@ -26,7 +26,7 @@ bool Read::read() {
             if (messageOpcode == 4) {
 
                 conditionV.notify_all();
-                //terminate = true;
+                terminate = true;
 
                 break;
             } else {
