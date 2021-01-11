@@ -18,7 +18,7 @@ bool Read::read() {
 
         if (opcode == 13) {
             std::cout << "ERROR " << messageOpcode << std::endl;
-            break;
+           // break;
         }
         if (opcode == 12) {
             std::cout << "ACK " << messageOpcode << std::endl;
